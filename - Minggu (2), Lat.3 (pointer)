@@ -1,0 +1,25 @@
+#include <stdio.h>
+using namespace std;
+
+int main(){
+	printf ("Nama        = Ikko Cahya Awinata \n");
+	printf ("Kelas       = Teknik Informatika A 2022 \n");
+	printf ("NIM         = 22051204038\n");
+	printf ("Mata Kuliah = Struktur Data\n");
+	printf ("==========================================\n");
+	printf ("\n");
+	printf ("Latihan Nomor 3\n");
+
+	int a=41, b=53, t;
+	int *p, *q;
+	p = &a;
+	q = &b;
+	printf("Nilai Yang Ditunjuk p = %d di alamat %p\n", *p,p);
+	printf("Nilai Yang Ditunjuk q = %d di alamat %p\n", *q,q);
+	
+	t = *p;
+	*p = *q;
+	*q = t;
+	
+	return 0;
+}

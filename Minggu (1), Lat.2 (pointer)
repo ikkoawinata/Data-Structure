@@ -1,0 +1,24 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+int main(){
+	cout << " Nama        = Ikko Cahya Awinata " <<endl;
+	cout << " Kelas       = Teknik Informatika A 2022 " <<endl;
+	cout << " NIM         = 22051204038" <<endl;
+	cout << " Mata Kuliah = Struktur Data" <<endl;
+	cout << " =======================================" <<endl;
+	cout<<endl;
+	cout << "Latihan Nomor 2" <<endl;
+	int x;
+	int *px; //pointer ke variabel
+	int **ppx; //pointer ke pointer
+
+	x = 175;
+	px = &x;
+	ppx = &px;
+	cout << " Nilai x = " << x << endl;
+	cout << " Nilai px = " << *px << endl;
+	cout << " Nilai ppx = " << **ppx << endl;
+	getch();
+}

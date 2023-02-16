@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main(){
+	printf ("Nama        = Ikko Cahya Awinata \n");
+	printf ("Kelas       = Teknik Informatika A 2022 \n");
+	printf ("NIM         = 22051204038\n");
+	printf ("Mata Kuliah = Struktur Data\n");
+	printf ("==========================================\n");
+	printf ("\n");
+	printf ("Latihan Nomor 6\n");
+
+	char nama[] ="aliong";
+	char *p;
+	//cara 1 >> langsung menunjuk nama array.
+	p=nama;
+	while(*p!=NULL){
+		printf("%c",*p,nama);
+		p++;
+	}
+	printf("\n");
+	//cara 2 >> secara eksplisit menunjuk ke elemen pertama array
+	p=&nama[0];
+	while(*p!=NULL){
+		printf("%c",*p);
+		p++;
+	}
+ 	printf("\n");
+ 	return 0;
+}

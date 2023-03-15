@@ -1,0 +1,259 @@
+#include <iostream>
+using namespace std;
+
+
+struct RiwayatUser{
+    string nama, pendidikan, instansi, tahun;
+    RiwayatUser *next;
+    RiwayatUser *prev;
+};
+
+
+
+//Membuat data double linked list
+RiwayatUser  *head, *tail, *cur, *newNode, *del, *afterNode, urut, *cari;
+void createDoubleLinkedList (string data[4]){
+    head = new RiwayatUser();
+    head->nama = data[0];
+    head->pendidikan = data[1];
+    head->instansi = data[2];
+    head->tahun = data[3];
+    head->prev = NULL;
+    head->next = NULL;
+    tail = head; 
+};
+
+
+int countDoubleLinkedList(){
+    if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        cur = head;
+        int jumlah = 0;
+        while (cur != NULL){
+            jumlah++;
+            //step
+            cur = cur->next;
+        }
+        return jumlah;
+    }   
+}
+
+
+//Add first
+void addFirst(string data[4]){
+    if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        newNode = new RiwayatUser();
+        newNode ->nama = data[0];
+        newNode ->pendidikan = data[1];
+        newNode ->instansi = data[2];
+        newNode ->tahun = data[3];
+        newNode ->prev = NULL;
+        newNode ->next = head;
+        head -> prev = newNode;
+        head = newNode;
+        };
+};
+
+
+
+//Add Middle
+void addMiddle(string data[4], int posisi){
+    if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{ 
+
+    if(posisi==1){
+        cout << "Posisi 1 itu bukan posisi tengah!" << endl;
+    }else if(posisi < 1 || posisi > countDoubleLinkedList()){
+        cout << "Posisi Diluar jangkauan!" << endl;
+    }else{
+        newNode = new RiwayatUser();
+        newNode ->nama = data[0];
+        newNode ->pendidikan = data[1];
+        newNode ->instansi = data[2];
+        newNode ->tahun = data[3];
+
+
+        //transfersing
+        cur = head;
+        int nomor =1;
+        while(nomor < posisi -1){
+            cur = cur->next;
+            nomor++;
+        }
+        afterNode = cur->next;
+        newNode->prev = cur;
+        newNode->next = afterNode;
+        cur->next = newNode;
+        afterNode->prev = newNode;
+    };
+};
+}
+
+
+
+//Add last 
+void addLast(string data[4]){
+    if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        newNode = new RiwayatUser();
+        newNode ->nama = data[0];
+        newNode ->pendidikan = data[1];
+        newNode ->instansi = data[2];
+        newNode ->tahun = data[3];
+        newNode ->prev = tail;
+        newNode ->next = NULL;
+        tail-> next = newNode;
+        tail = newNode;
+        };
+};
+
+
+//Add hapus bagian depan 
+void removeFirst(){
+if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        del = head;
+        head = head->next;
+        head ->prev = NULL;
+        delete del;
+    }
+};
+
+
+//Add hapus bagian belakang 
+void removeLast(){
+if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        del = tail;
+        tail = tail->prev;
+        tail->next = NULL;
+        delete del;
+    }
+};
+
+
+//bagian hapus tengah/middle
+void removeMiddle(int posisi){
+    if ( head == NULL){
+        cout << " Double Linked list Belum Dibuat! ";
+    }else{
+        if ( posisi ==1 || posisi == countDoubleLinkedList() ){
+            cout << "Posisi 1 bukan posisi tengah" << endl;
+        }else if (posisi < 1 || posisi > countDoubleLinkedList() ){
+            cout << "Posisi diluar jangkauan ";
+        }else{
+            int nomor =1;
+            cur = head;
+            while(nomor < posisi - 1){
+                cur = cur->next;
+                nomor++;
+            }
+        };
+            del = cur->next;
+            afterNode = del->next;
+            cur->next = afterNode;
+            afterNode->prev = cur;
+            delete del;
+    };
+};
+
+
+//PEMANIS MODIFIKASI
+void create(){
+    cout << " A.) Bagian Create Data " << endl;
+};
+
+void tambahAwal(){
+    cout << " B.) Penambahan Data di Depan " << endl;
+}
+
+void tambahAkhir(){
+    cout << " C.) Penambahan Data di Akhir " << endl;
+}
+
+void tambahMiddle(){
+    cout << " D.) Menambahkan Data di Tengah " << endl;
+}
+
+void hapus(){
+    cout << " E.) Bagian Menghapus Data " << endl;
+}
+
+void author(){
+	cout << " Nama		: Ikko Cahya Awinata " << endl;
+	cout << " Kelas		: Teknik Informatika 2022 A " << endl;
+	cout << " NIM		: 22051204038 " << endl;
+	cout << " Matkul		: Struktur Data (Praktikum Linked List)" << endl;
+	cout << "=================================================== " << endl;
+};
+// PEMANIS MODIFIKASI 
+
+
+//print double linked list
+void printDoubleLinkedList(){
+    if(head == NULL){
+        cout << "Double Linked List belum di buat ";
+    }else{
+        cout << " Jumlah data : " << countDoubleLinkedList() << endl;
+        cout << "                      ISI DATA " << endl;
+        cout << "==============================================================" << endl;
+        cur = head;
+        while(cur !=NULL){
+            //print
+        cout << "Nama Lengkap   : " << cur->nama << endl;
+        cout << "Pendidikan     : " << cur->pendidikan << endl;
+        cout << "Instansi       : " << cur->instansi << endl;
+        cout << "Tahun          : " << cur->tahun << "\n " << endl;
+    //step
+    cur = cur->next;
+    };
+    };
+};
+
+
+
+//UTAMA
+int main(){
+	
+	author();
+	
+	
+    string RiwayatUser[4] = {"Ikko Cahya Awinata (0)","S1 Teknik Informatika", "Universitas Negeri Surabaya", "2022 - sekarang"};
+    createDoubleLinkedList(RiwayatUser);
+
+  create();
+    printDoubleLinkedList();
+
+
+    string data2[4] = {"Ikko Cahya Awinata (1)", "Sekolah Menengah Kejuruan Jurusan Multimedia", "SMK IKIP Surabaya", "2019 - 2022"};
+    addFirst(data2);
+
+tambahAwal();
+   printDoubleLinkedList(); 
+
+    string data3[4] = {"Ikko Cahya Awinata (2)", "Sekolah Menengah Pertama", "SMP UNESA 1 Surabaya", "2016 - 2019"};
+    addLast(data3);
+tambahAkhir();
+   printDoubleLinkedList();     
+
+
+    string data4[4] ={"Ikko Cahya Awinata (3)", "Sekolah Negeri Dasar", "SDN Krembangan Selatan X/21", "2010 - 2016"};
+    addMiddle(data4,3);
+
+    tambahMiddle();
+    printDoubleLinkedList();
+     
+    removeMiddle(3);
+    removeMiddle(2);
+    printDoubleLinkedList();
+    
+    
+};
+

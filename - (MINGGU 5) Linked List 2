@@ -1,0 +1,167 @@
+#include <iostream>
+#include <conio.h>
+#include <windows.h>
+using namespace std;
+
+struct DataMahasiswa {
+    char nama[50];
+    char NIM[50];
+    char JenisKelamin[50];
+    char pekerjaan[30];
+    DataMahasiswa *next, *prev;
+};
+DataMahasiswa *awal=NULL, *akhir=NULL,*bantu,*baru,*hapus ,*data, *cur, *newNode;
+
+void inputDatadepan(){
+    baru = new DataMahasiswa;
+    baru->next = NULL;
+    baru->prev = NULL;
+    cout << "Nama\t\t: ";
+    cin >> baru->nama;
+    cout << "NIM \t\t :";
+    cin >> baru->NIM;
+    cout << "Jenis Kelamin  : ";
+    cin >> baru->JenisKelamin;
+    cout << "Pekerjaan \t: ";
+    cin >> baru->pekerjaan;
+    
+    if (awal == NULL){
+        awal = akhir = baru;
+    }
+    else {
+        baru->next = awal;
+        awal->prev = baru;
+        awal = baru;
+    }
+    system ("cls");
+}
+
+
+void inputDatatengah(){
+    baru = new DataMahasiswa;
+    baru->next = NULL;
+    baru->prev = NULL;
+    cout << "Nama\t\t: ";
+    cin >> baru->nama;
+    cout << "NIM : ";
+    cin >> baru->NIM;
+    cout << "Jenis Kelamin  : ";
+    cin >> baru->JenisKelamin;
+    cout << "Pekerjaan \t: ";
+    cin >> baru->pekerjaan;
+    
+      if (awal == NULL){
+        awal = akhir = baru;
+    }
+    else{
+    	
+    }
+    system ("cls");
+};
+
+
+void inputDatabelakang(){
+    baru = new DataMahasiswa;
+    baru->next = newNode;
+    baru->prev = newNode;
+    cout << "Nama\t\t: ";
+    cin >> baru->nama;
+    cout << "NIM \t\t: ";
+    cin >> baru->NIM;
+    cout << "Jenis Kelamin  : ";
+    cin >> baru->JenisKelamin;
+    cout << "Pekerjaan \t: ";
+    cin >> baru->pekerjaan;
+    if (awal == baru){
+        awal = akhir = baru;
+    }
+    else {
+        akhir->next = baru;
+        akhir->prev = baru;
+        akhir = baru;
+    }
+    system("cls");
+}
+
+void hapusDatadepan(){
+    if(awal->next == NULL){
+        awal = akhir=NULL;
+        cout << "Data sudah kosong";
+    }else{
+        hapus = awal;
+        awal = awal->next;
+        awal->prev = NULL;
+        delete hapus;
+    }
+}
+
+void hapusDatabelakang(){
+    if(awal->next == NULL){
+        awal->prev==NULL;
+        cout << "Data sudah kosong";
+    }else{
+        hapus = akhir;
+        akhir = akhir->prev;
+        akhir->next = NULL;
+        delete hapus;
+    }
+}
+
+
+void outputData (){
+    bantu=awal;
+    while (bantu != NULL){
+        cout << "Nama\t\t: "<<bantu->nama<<endl;
+        cout << "NIM \t: "<<bantu->NIM<<endl;
+        cout << "Jenis Kelamin \t\t  : "<<bantu->JenisKelamin<<endl;
+        cout << "Pekerjaan \t :" <<bantu->pekerjaan<<endl<<endl;
+        bantu = bantu->next;
+    }
+}
+
+int main()
+{
+    int pilihan;
+    do {
+        cout << "Pilih menu : \n";
+        cout << "1. Input data di depan\n";
+        cout << "2. Input data di belakang\n";
+        cout << "3. Hapus data di depan\n";
+        cout << "4. Output data\n";
+        cout << "5. Hapus data belakang\n";
+        cout << "6. Input data tengah\n";
+        cout << "0. Lain-lain >> EXIT\n";
+        cout << "Pilihan : ";
+        cin >> pilihan;
+        switch (pilihan){
+        case 1 :
+            inputDatadepan();
+            break;
+        case 2 :
+            inputDatabelakang();
+            break;
+        case 3 :
+            hapusDatadepan();
+            break;
+        case 4 :
+            if (baru == NULL){
+                    cout << "Data masih kosong !\n" << endl << endl;
+            }
+            else {
+                outputData();
+            }
+            break;
+        case 5 :
+        	hapusDatabelakang();
+			break;
+		case 6:
+			inputDatatengah();
+			break;
+        default  :
+            cout << "---------EXIT---------";
+            break;
+        }
+    }while(pilihan <= 6);
+    getch();
+
+}

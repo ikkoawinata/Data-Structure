@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Node untuk menyimpan data mahasiswa
+struct Node {
+    char nama[100];
+    char nim[20];
+    char jurusan[50];
+    char JK[15];
+    struct Node* next;
+};
+
+// Pointer untuk mengakses stack
+struct Node* top = NULL;
+
+// Fungsi untuk menambahkan data mahasiswa ke stack
+void push(char nama[], char nim[], char jurusan[], char JK[]) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    strcpy(new_node->nama, nama);
+    strcpy(new_node->nim, nim);
+    strcpy(new_node->jurusan, jurusan);
+    strcpy(new_node->JK, JK);
+    new_node->next = top;
+    top = new_node;
+}
+
+// Fungsi untuk menghapus data mahasiswa dari stack
+void pop() {
+    if (top == NULL) {
+        printf("Stack kosong!\n");
+        return;
+    }
+    struct Node* temp = top;
+    top = top->next;
+    free(temp);
+}
+
+// Fungsi untuk menampilkan data mahasiswa pada stack
+void display() {
+    if (top == NULL) {
+        printf("Stack kosong!\n");
+        return;
+    }
+    struct Node* temp = top;
+    while (temp != NULL) {
+        printf("Nama: %s\n", temp->nama);
+        printf("NIM: %s\n", temp->nim);
+        printf("Jurusan: %s\n", temp->jurusan);
+        printf("Jenis Kelamin: %s\n", temp->JK);
+        printf("\n");
+        temp = temp->next;
+    }
+}
+
+// Fungsi utama
+int main() {
+    int choice;
+    char nama[100], nim[20], jurusan[50], JK[15];
+
+    while (1) {
+        printf("Menu:\n");
+        printf("1. Tambah data mahasiswa\n");
+        printf("2. Hapus data mahasiswa\n");
+        printf("3. Tampilkan data mahasiswa\n");
+        printf("4. Keluar\n");
+        printf("Masukkan pilihan: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Masukkan nama: ");
+                scanf("%s", nama);
+                printf("Masukkan NIM: ");
+                scanf("%s", nim);
+                printf("Masukkan jurusan: ");
+                scanf("%s", jurusan);
+                printf("Jenis Kelamin: ");
+                scanf("%s", JK);
+                push(nama, nim, jurusan, JK);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Pilihan tidak valid!\n");
+        }
+    }
+
+    return 0;
+}

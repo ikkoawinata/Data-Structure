@@ -1,0 +1,29 @@
+#include <stdio.h>
+using namespace std;
+
+int pangkat(int a, int b) {
+    if (b == 0) {
+        return 1;
+    } else {
+        return a * pangkat(a, b - 1);
+    }
+}
+
+int main() {
+    int x, y, hasil;
+    
+    printf("Nama     : Ikko Cahya Awinata\n");
+    printf("Kelas    : Teknik Informatika 2022 A\n");
+    printf("NIM      : 22051204038\n");
+    printf("===================================\n");
+    printf("Masukkan Bilangan: ");
+    scanf("%i", &x);
+    
+    printf("Masukkan Bilangan Pangkat: ");
+    scanf("%i", &y);
+    
+    hasil = pangkat(x, y);
+    printf("Hasil bilangan %d pangkat %d adalah: %d", x, y, hasil);
+    
+    return 0;
+}

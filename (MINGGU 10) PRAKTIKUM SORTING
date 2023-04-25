@@ -1,0 +1,111 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+struct Mahasiswa {
+    string nama,nim;
+    float partisipasi, tugas, uts, uas, nilai_akhir;
+};
+
+void merge(Mahasiswa* arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    
+    Mahasiswa* L = new Mahasiswa[n1];
+    Mahasiswa* R = new Mahasiswa[n2];
+    
+    for (int i = 0; i < n1; i++) {
+        L[i] = arr[l + i];
+    }
+    
+    for (int j = 0; j < n2; j++) {
+        R[j] = arr[m + 1 + j];
+    }
+    
+    int i = 0;
+    int j = 0;
+    int k = l;
+    
+    while (i < n1 && j < n2) {
+        if (L[i].nilai_akhir >= R[j].nilai_akhir) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    delete[] L;
+    delete[] R;
+}
+
+void merge_sort(Mahasiswa* arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        
+        merge_sort(arr, l, m);
+        merge_sort(arr, m + 1, r);
+        
+        merge(arr, l, m, r);
+    }
+}
+
+int main() {
+    int n;
+    
+    cout << "Masukkan jumlah mahasiswa: ";
+    cin >> n;
+    
+    Mahasiswa* mahasiswa = new Mahasiswa[n];
+    
+    for (int i = 0; i < n; i++) {
+        cout << "Mahasiswa ke-" << i + 1 << endl;
+        cout << "Nama               : ";
+        cin >> mahasiswa[i].nama;
+        cout << "NIM                : ";
+        cin >> mahasiswa[i].nim;
+        cout << "Nilai partisipasi  : ";
+        cin >> mahasiswa[i].partisipasi;
+        cout << "Nilai tugas        : ";
+        cin >> mahasiswa[i].tugas;
+        cout << "Nilai UTS          : ";
+        cin >> mahasiswa[i].uts;
+        cout << "Nilai UAS          : ";
+        cin >> mahasiswa[i].uas;
+        
+        mahasiswa[i].nilai_akhir = (mahasiswa[i].partisipasi * 0.2) + (mahasiswa[i].tugas * 0.3) + (mahasiswa[i].uts * 0.2) + (mahasiswa[i].uas * 0.3);
+        
+        cout << endl;
+    }
+    
+    merge_sort(mahasiswa, 0, n - 1);
+    
+    cout << "\t\t\t Daftar Nilai Mahasiswa \t\t\t" << endl;
+    cout << "--------------------------------------------------------------------------------------" << endl;
+    cout << "No. |     Nama    |    NIM   | Partisipasi | Nilai Tugas | UTS | UAS | Nilai Akhir | "<< endl;  
+    cout << "--------------------------------------------------------------------------------------" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << ".  |     " << mahasiswa[i].nama << "     |       " << mahasiswa[i].nim << " |"<< mahasiswa[i].partisipasi <<"  \t   | \t  " << mahasiswa[i].tugas << " \t | " << mahasiswa[i].uts << "  | " << mahasiswa[i].uas << "  | " << mahasiswa[i].nilai_akhir << endl;
+    }
+    
+    delete[] mahasiswa;
+    
+    return 0;
+}
+

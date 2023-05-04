@@ -13,7 +13,8 @@ void garis(){
     cout <<"========================================= " << endl;
 };
 
-/*void daftar(){
+/*
+void daftar(){
     cout << endl;
     cout << " \t\t\t  DAFTAR NILAI AKHIR MAHASISWA \t\t\t" << endl;
     cout << "============================================================================= " << endl;
@@ -23,8 +24,8 @@ void garis(){
     cout << " 2. | 306 |\tDarma\t|\t80    |\t  80  |   85  |   94  |\t    85      |" << endl;
     cout << " 3. | 301 |\tAli\t|\t65    |\t  80  |   80  |   68  |\t    73      |" << endl;
     cout << "============================================================================== " << endl;
-};*/
-
+};
+*/
 
 
 //struct mahasiswa
@@ -90,7 +91,7 @@ int main(){
     garis();
     author();
     garis();
-    //daftar();
+  //  daftar();
 
     
 
@@ -119,19 +120,18 @@ Mahasiswa data[n];
 		cin >> data[i].uas;
 		data[i].nilaiAkhir = hitung_nilaiAkhir(data[i].partisipasi, data[i].tugas, data[i].uts, data[i].uas);
 		cout << "Nilai akhirnya mahasiswa yang bernama " << data[i].nama << " adalah : " << data[i].nilaiAkhir << endl;
-		
-	
-		 
-    cout << "\t\t\t Daftar Nilai Mahasiswa \t\t\t" << endl;
-    cout << "--------------------------------------------------------------------------------------" << endl;
-    cout << "No. |     Nama    |    NIM   | Partisipasi | Nilai Tugas | UTS | UAS | Nilai Akhir    | "<< endl;  
-    cout << "--------------------------------------------------------------------------------------" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << i + 1 << ".  |     " << data[i].nama << "     |       " << data[i].NIM << " |"<< data[i].partisipasi <<"  \t   | \t  " << data[i].tugas << " \t | " << data[i].uts << " | " << data[i].uas << "  |  " << data[i].nilaiAkhir << "           |   " << endl;
-    }
-    
 
 	}
+	
+			 
+    cout << "\t\t\t Daftar Nilai Mahasiswa \t\t\t" << endl;
+    cout << "--------------------------------------------------------------------------------------" << endl;
+    cout << "No. |     Nama   \t\t |    NIM   | Partisipasi | Nilai Tugas | UTS | UAS | Nilai Akhir    | "<< endl;  
+    cout << "--------------------------------------------------------------------------------------" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << ". \t\t |     " << data[i].nama << "     |       " << data[i].NIM << " |"<< data[i].partisipasi <<"  \t   | \t  " << data[i].tugas << " \t | " << data[i].uts << " | " << data[i].uas << "  |  " << data[i].nilaiAkhir << "           |   " << endl;
+    }
+    
 	
 	
 	//nilai sebelum diurutkan

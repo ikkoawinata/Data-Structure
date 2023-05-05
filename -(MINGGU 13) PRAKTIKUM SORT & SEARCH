@@ -1,0 +1,230 @@
+#include<iostream>
+#include<string.h>
+#include <stdlib.h>
+#include <math.h>
+using namespace std;
+
+void author(){
+    cout<<" Nama    : Ikko Cahya Awinata "<< endl;
+    cout<<" Kelas   : Teknik Infromatika 2022 A " << endl;
+    cout<<" NIM     : 22051204038 " << endl;
+    cout<<" Matkul  : Struktur Data ( Merge Sorting ) " << endl;
+};
+
+void garis(){
+    cout <<"========================================= " << endl;
+};
+
+/*
+void daftar(){
+    cout << endl;
+    cout << " \t\t\t  DAFTAR NILAI AKHIR MAHASISWA \t\t\t" << endl;
+    cout << "============================================================================= " << endl;
+    cout << " No.| NIM |\tNama\t| Partisipasi |\tTugas |  UTS  |  UAS  |\tNilai Akhir |" << endl;
+    cout << "============================================================================= " << endl;
+    cout << " 1. | 302 |\tDewi\t|\t85    |\t  88  |   85  |   88  |\t    86      |" << endl;
+    cout << " 2. | 306 |\tDarma\t|\t80    |\t  80  |   85  |   94  |\t    85      |" << endl;
+    cout << " 3. | 301 |\tAli\t|\t65    |\t  80  |   80  |   68  |\t    73      |" << endl;
+    cout << "============================================================================== " << endl;
+};
+*/
+
+
+//struct mahasiswa
+struct Mahasiswa{
+	int NIM, partisipasi, tugas, uts, uas, nilaiAkhir;
+	string nama;
+};
+
+
+
+//fungsi merge untuk menggabungkan dua array yang sudah diurutkan
+void merge(Mahasiswa arr[], int left, int mid, int right){
+	int n1 = mid - left +1;
+	int n2 = right - mid;
+	Mahasiswa L[n1], R[n2];
+		for (int i = 0; i<n1; i++){
+			L[i] = arr[left + i];
+		}for (int j = 0; j<n2; j++){
+			R[j] = arr[mid + 1 + j];
+		}
+		
+		//proses penggabungan
+		int i = 0;
+		int j = 0;
+		int k = left;
+		while (i < n1 && j < n2){
+			if (L[i].nilaiAkhir > R[j].nilaiAkhir){
+				arr[k] = L[i];
+				i++;
+			}else {
+				arr[k] = R[j];
+				j++;
+			}k++;
+		}
+		while(j < n2){
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
+} 
+
+//fungsi merge sort untuk mengurutkan array dari kecil ke besar
+void merge_sort(Mahasiswa arr[], int left, int right){
+	if(left > right){
+		int mid = (right - left)/2;
+		merge_sort(arr, left, mid); //bagian kiri
+		merge_sort(arr, mid+1, right); //bagian kanan
+		merge(arr, left, mid,right);
+	}
+}
+
+
+
+/*//fungsi search interpolation search
+	void interpolation_search(Mahasiswa arr[], int n, int kunci){
+		int data[n];
+		int low = 0;
+		int high = n-1;
+		int flag=0, d=40;
+		float pos1;
+		int pos;
+		n=5;
+	
+		do{
+			pos1 = (d-data[low]) / (data[high] - data[low]) * (high-low) + low;
+			pos - floor(pos1);
+			if (data[pos] == d){
+				flag=1;
+				continue;
+			}
+			if (data[pos] > d) high = pos-1;
+			else
+			if (data[pos] < d) low = pos +1;
+		}while (d >= data[low] && d <= data[high]);
+		if(flag==0)
+		cout << " Data tidak ada " << endl;
+		else
+		cout << " Data ada " << endl;
+	}
+*/
+
+
+
+
+// fungsii seraching baruuuu
+int interpolation_search(Mahasiswa arr[], int n, int kunci){
+	int low = 0;
+	int high = n -1;
+	while(low <= high && kunci >= arr[low].nilaiAkhir && kunci <= arr[high].nilaiAkhir){
+		if (low == high){
+			if (arr[low].nilaiAkhir == kunci)
+			return low;
+			return -1;
+		}
+		int pos = low + (((double)(high - low) / (arr[high].nilaiAkhir - arr[low].nilaiAkhir)) * (kunci - arr[low].nilaiAkhir));
+		if (arr[pos].nilaiAkhir == kunci)
+		return pos;
+		if (arr[pos].nilaiAkhir < kunci)
+		low = pos + 1;
+		
+		else
+			high = pos -1;
+	}
+	return -1;
+}
+
+
+
+//fungsi hitung nilai akhir
+int hitung_nilaiAkhir(int partisipasi, int tugas, int uts, int uas){
+	return (partisipasi *20 + tugas * 30 + uts * 20 + uas * 30)/100;
+}
+
+
+
+//fungis utama
+int main(){
+    garis();
+    author();
+    garis();
+  //  daftar();
+
+    
+
+    int n,i,j,k,tmp, kunci, pos;
+    cout << " Masukkan jumlah mahasiswa : "; cin >> n;
+    
+//inisialisasi dari struct mahasiswa
+Mahasiswa data[n];
+
+
+//input data mahasiswa
+	for (int i = 0; i < n; i++){
+		cout << endl;
+		cout << " Mahasiswa ke-" << i + 1 << endl;
+		cout << "NIM 			: ";
+		cin >> data[i].NIM;	
+		cout << "Nama 			: ";
+		cin >> data[i].nama;
+		cout << "Nilai Partisipasi	: ";
+		cin >> data[i].partisipasi;
+		cout << "Nilai Tugas 	  	: " ;
+		cin >> data[i].tugas;
+		cout << "Nilai UTS 		: ";
+		cin >> data[i].uts;
+		cout << "Nilai UAS 		: ";
+		cin >> data[i].uas;
+		data[i].nilaiAkhir = hitung_nilaiAkhir(data[i].partisipasi, data[i].tugas, data[i].uts, data[i].uas);
+		cout << "Nilai akhirnya mahasiswa yang bernama " << data[i].nama << " adalah : " << data[i].nilaiAkhir << endl;
+
+	}
+	
+			 
+    cout << "\t\t\t Daftar Nilai Mahasiswa \t\t\t" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "No. |     Nama   \t |       NIM    |   Partisipasi | Nilai Tugas    |      UTS     |       UAS     |  Nilai Akhir  | "<< endl;  
+    cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << ".  |    " << data[i].nama << "    \t |       " << data[i].NIM << "\t|      "<< data[i].partisipasi <<"  \t|"<< data[i].tugas << " \t         | \t " << data[i].uts << "\t|\t" << data[i].uas <<"\t|\t" << data[i].nilaiAkhir << "\t|\t" << endl;
+    }
+    
+	
+	
+	//nilai sebelum diurutkan
+	cout << endl;
+	cout << "Data Nilai Akhir Sebelum Sorting : ";
+		for(i=0; i < n ; i++){
+			cout << data[i].nilaiAkhir << "  ";
+		}
+		cout << endl;
+			for (i=0; i < n; i++){
+				for (j=i+1; j < n; j++){
+					if(data[i].nilaiAkhir > data[j].nilaiAkhir){
+						tmp = data[i].nilaiAkhir;
+					 data[i].nilaiAkhir = data[j].nilaiAkhir;
+					    data[j].nilaiAkhir = tmp;
+					}
+				}	merge_sort(data,0,n-1);
+				}
+				
+				
+				//nilai setelah diurutkan
+				cout << "Data Nilai Akhir Setelah Sorting : ";
+				for(i=0; i < n ; i++){
+					cout << data[i].nilaiAkhir << "  " ;
+					cout << endl;
+				}
+				cout << endl;
+				cout << " BAGIAN SEARCHING NILAI AKHIR " << endl;
+				cout <<" Masukkan nilai yang akhir yang ingin dicari : ";
+				cin >> kunci;
+				int index = interpolation_search (data, n, kunci);
+				if (index != -1){
+					cout << " Nilai akhir " << kunci << " ditemukan pada indeks : " << index << endl;
+				}else
+				cout << " nilai akhir " << kunci  << " tidak ditemukan " << endl;
+				
+				
+				cout << " SEKIAN TERIMA KASIH " << endl;
+}
